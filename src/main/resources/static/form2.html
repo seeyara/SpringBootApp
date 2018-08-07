@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Get Started</title>
+</head>
+<body>
+<div>
+  <h1 id="demo">Hello World Spring Boot!</h1>
+  <style>
+table, td, th {    
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    padding: 5px;
+}
+a{
+	text-decoration:none;
+	color:inherit;
+}
+button {
+    background-color: #008CBA; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+button {font-size: 10px;}
+
+  </style>
+  <table id="myTable">
+  	<thead>
+	  	<tr>
+	  		<th>Id</th>
+	  		<th>Name</th>
+	  		<th>Action</th>
+					
+	  	</tr>
+  	</thead>
+  	<tbody>
+	  	<tr>
+			<td><input type="number" name="id" id="id" placeholder="Id"></td>
+			<td><input type="text" name="name" id="name" placeholder="Name"></td>
+			<td><button onClick="addData()">Add</button></td>
+		</tr>
+	</tbody>
+  </table>
+</div>
+<script>
+var i=2;
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+	    if (this.readyState == 4 && this.status == 200) {
+	       // Typical action to be performed when the document is ready:
+	       //document.getElementById("demo").innerHTML = xhttp.responseText;
+	       var table = document.getElementById("myTable");
+	    	var tabledata = JSON.parse(xhttp.responseText);
+	    	console.log(tabledata);
+	    	for(var j in tabledata){
+	    		// Create an empty <tr> element and add it to the 1st position of the table:
+	    		var row = table.insertRow(i++);
+
+	    		// Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
+	    		var cell1 = row.insertCell(0);
+	    		var cell2 = row.insertCell(1);
+	    		var cell3 = row.insertCell(2);
+				
+	    		// Add some text to the new cells:
+	    		cell1.innerHTML = tabledata[j]["id"];
+	    		cell1.id="table"+tabledata[j]["id"];
+	    		cell2.innerHTML = tabledata[j]["name"];
+	    		cell3.innerHTML = "<button onClick='myFunction("+tabledata[j]["id"]+")'>Delete</button>";
+	    	}
+	    }
+	};
+	xhttp.open("GET", "hello", true);
+	xhttp.send();
+
+	
+	function myFunction(name) {
+		  
+		  var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+			    if (this.readyState == 4 && this.status == 200) {
+			       // Typical action to be performed when the document is ready:
+			       //document.getElementById("demo").innerHTML = xhttp.responseText;
+					console.log("Deleted");
+					deleteRow("table"+name);
+			    }
+			};
+			xhttp.open("POST", "deleteEmployee", true);
+			xhttp.setRequestHeader("Content-type", "application/json");
+			xhttp.send("{\"id\":\""+name+"\",\"name\":\""+name+"\"}");
+
+	}
+	
+	function addData() {
+		  console.log("Name");
+		  var id = document.getElementById("id").value;
+		  var name = document.getElementById("name").value;
+		  var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+			    if (this.readyState == 4 && this.status == 200) {
+			       // Typical action to be performed when the document is ready:
+			       //document.getElementById("demo").innerHTML = xhttp.responseText;
+			       if(xhttp.responseText=="true"){
+				       var table = document.getElementById("myTable");
+			    		var row = table.insertRow(i++);
+			    		// Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
+			    		var cell1 = row.insertCell(0);
+			    		var cell2 = row.insertCell(1);
+			    		var cell3 = row.insertCell(2);
+						
+			    		// Add some text to the new cells:
+			    		cell1.innerHTML = id;
+			    		cell1.id="table"+id;
+			    		cell2.innerHTML = name;
+			    		cell3.innerHTML = "<button  onClick='myFunction("+id+")'>Delete</button>";
+			    		document.getElementById("id").value="";
+			  		  	document.getElementById("name").value="";
+			    	   
+			       }else{
+			    	   alert("ID already exists");
+			       }
+			    }
+			};
+			xhttp.open("POST", "addEmployee", true);
+			xhttp.setRequestHeader("Content-type", "application/json");
+			xhttp.send("{\"id\":\""+id+"\",\"name\":\""+name+"\"}");
+		}
+	
+		function deleteRow(rowid)  
+		{   
+		    var row = document.getElementById(rowid);
+		    console.log(row.parentNode);
+		    row = row.parentNode;
+		    row.parentNode.removeChild(row);
+		    i--;
+		    
+		}
+</script>
+</body>
+</html>

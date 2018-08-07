@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>SpringMVC + Thymeleaf + Bootstrap 4 Table Example</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</head>
+ 
+<body>
+    <h2>Student List</h2>
+    <table style="border:none">
+    <tr>
+	    <th>Student ID</th>
+	    <th>Student Name</th>
+	    <th>Courses taken</th>
+    </tr>
+    <tr th:each="stud : ${students}">
+        <td th:text="${stud.id}">id</td>
+        <td th:text="${stud.name}">name</td>
+        <td th:text="${stud.courses}">courses</td>
+      </tr>
+
+    
+</body>
+</html>
