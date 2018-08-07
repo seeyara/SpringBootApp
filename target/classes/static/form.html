@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+  <h3>Add a student</h3>
+	<form method="POST" action="/insert" enctype="multipart/form-data" >
+		<label for="Name">Name:</label>
+		<input type="text" name="name" size="50"></input><br/>
+		<label for="Courses">Courses taken:</label>
+		<input type="text" name="courses" size="50"></input><br/>
+		
+		<input type="submit"></input>
+	</form>
+</body>
+</html>

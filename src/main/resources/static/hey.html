@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<html >
+<head>
+  <title>Getting Started: Serving Web Content</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> -->
+
+  <script type="text/javascript">
+// debugger;
+// $(document).ready(function(){
+//   debugger;
+//   $('#devSubmit').click(function(){
+//     debugger;
+//   });
+
+// });
+
+    function setURL1(form) {
+    form.action="getstudent/"+form.idinput.value;
+    console.log(form.action);
+    event.preventDefault();
+}
+
+  function setURL2(form) {
+    form.action="getstudent/"+form.nameinput.value;
+    console.log(form.action);
+    event.preventDefault();
+}
+
+function show1(){
+  if (document.getElementById('radios-0').checked) {
+    document.getElementById('form1').style.display = 'block';
+} else {
+    document.getElementById('form1').style.display = 'none';
+}
+}
+
+function show2(){
+  if (document.getElementById('radios-1').checked) {
+    document.getElementById('form2').style.display = 'block';
+} else {
+    document.getElementById('form2').style.display = 'none';
+}
+}
+  </script>
+</head>
+<body>
+      <!-- Form Name -->
+hdhhdhdh
+      <!-- Multiple Radios -->
+      <div >
+        <div class="col-md-4">
+          <div class="radio1">
+            <label for="radios-0">
+              <input type="radio" name="radios" id="radios-0" value="1" checked="checked" onclick="javascript:show1();"> Find by id
+              <!-- Text input-->
+              <form  onsubmit="setURL1(this)" id="form1">
+              <div >
+                 <div class="col-md-4">
+                  <input id="idinput"  type="text" placeholder="Enter ID" class="form-control input-md">
+                  <!-- Button -->
+                  <div class="form-group">
+                     <div class="col-md-4">
+                      <input type="submit" value="submit" id="devSubmit" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+            </label>
+          </div>
+          <div class="radio2">
+            <label for="radios-1">
+              <input type="radio" name="radios" id="radios-1" value="2" onclick="javascript:show2();"> Find by name
+              <!-- Text input-->
+               <form action="" onsubmit="setURL2(this)" style="display:none" id="form2">
+              <div >
+                 <div class="col-md-4">
+                  <input id="nameinput"  type="text" placeholder="Enter Name" class="form-control input-md">
+                  <!-- Button -->
+                  <div class="form-group">
+                     <div class="col-md-4">
+                      <input type="submit" value="submit" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+            </label>
+          </div>
+        </div>
+      </div>
+</body>
+</html>
