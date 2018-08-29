@@ -31,9 +31,9 @@ public class StudentController {
 
 	Student student;
 	List<Map<String, Object>> list;
-	
-	
-	public void process(HttpServletRequest request, HttpServletResponse response, ServletContext servletContext, TemplateEngine templateEngine) throws IOException {
+
+	public void process(HttpServletRequest request, HttpServletResponse response, ServletContext servletContext,
+			TemplateEngine templateEngine) throws IOException {
 		WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
 		ctx.setVariable("students", list);
 		templateEngine.process("students/list", ctx, response.getWriter());
@@ -48,11 +48,29 @@ public class StudentController {
 		return list;
 	}
 
+	// Get all students
+	@RequestMapping("/getstudents")
+	public String getAStudents() {
+		String sql = "Select * from student_details;";
+		List<Map<String, Object>> list = jdbc.queryForList(sql);
+		printList(list);
+		return "studentList.html";
+	}
+
 	// Get specific student by ID
-	@RequestMapping("/getstudent/{id}")
-	public Map<String, Object> getStudent(@PathVariable String id) {
+	@RequestMapping("/getstudentByID/{id}")
+	public Map<String, Object> getStudentID(@PathVariable String id) {
 		String sql = "Select * from student_details where id=?;";
 		List<Map<String, Object>> list = jdbc.queryForList(sql, id);
+		printList(list);
+		return list.get(0);
+	}
+
+	// Get specific student by Name
+	@RequestMapping("/getstudentByName/{name}")
+	public Map<String, Object> getStudentName(@PathVariable String name) {
+		String sql = "Select * from student_details where name=?;";
+		List<Map<String, Object>> list = jdbc.queryForList(sql, name);
 		printList(list);
 		return list.get(0);
 	}
@@ -82,9 +100,8 @@ public class StudentController {
 	// Delete specific student by ID
 	@RequestMapping("/delstudent/{id}")
 	public String removeStudent(@PathVariable int id) {
-		String sql = "Delete from students_details where id=?;";
+		String sql = "Delete from student_details where id=?";
 		jdbc.update(sql, id);
-		jdbc.execute(sql);
 		return "Deleted 1 entry";
 	}
 
@@ -99,7 +116,7 @@ public class StudentController {
 		jdbc.execute(sql);
 		return "Updated 1 entry";
 	}
-	
+
 	public void printList(List<Map<String, Object>> list2) {
 		System.out.println(list2);
 	}

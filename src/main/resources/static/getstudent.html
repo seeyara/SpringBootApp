@@ -6,25 +6,16 @@
   <!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> -->
 
   <script type="text/javascript">
-// debugger;
-// $(document).ready(function(){
-//   debugger;
-//   $('#devSubmit').click(function(){
-//     debugger;
-//   });
-
-// });
 
     function setURL1(form) {
-    form.action="getstudent/"+form.idinput.value;
+    form.action="getstudentByID/"+form.idinput.value;
     console.log(form.action);
-    event.preventDefault();
+
 }
 
   function setURL2(form) {
-    form.action="getstudent/"+form.nameinput.value;
+    form.action="getstudentByName/"+form.nameinput.value;
     console.log(form.action);
-    event.preventDefault();
 }
 
 function show1(){
@@ -46,7 +37,6 @@ function show2(){
 </head>
 <body>
       <!-- Form Name -->
-hdhhdhdh
       <!-- Multiple Radios -->
       <div >
         <div class="col-md-4">
